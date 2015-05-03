@@ -11,4 +11,11 @@ router.get('/', function(req, res) {
 router.get('/quizes/question', quizController.question);
 router.get('/quizes/answer',   quizController.answer);
 
+router.get('/author', function(req, res, next) {
+    res.render('author', {
+        nombre   : 'Javier Ochoa Serna',
+        foto: '<img src="/images/javierochoa.jpg" width="100px" alt="Mikel Goig">'
+    });
+});
+
 module.exports = router;
