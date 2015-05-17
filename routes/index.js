@@ -23,7 +23,8 @@ router.put('/quizes/:quizId(\\d+)',        quizController.update);
 router.get('/author', function(req, res, next) {
     res.render('author', {
         nombre   : 'Javier Ochoa Serna',
-        foto: '<img src="/images/javierochoa.jpg" width="100px" alt="Javier Ochoa Serna">'
+        foto: '<img src="/images/javierochoa.jpg" width="100px" alt="Javier Ochoa Serna">',
+        errors: []
     });
 });
 
