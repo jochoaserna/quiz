@@ -35,6 +35,23 @@ app.use(function(req, res, next) {
   res.locals.session = req.session;   // Hacer visible req.session en las vistas
   next();
 });
+
+// AUTO-LOGOUT
+app.use(function(req,res,next) {
+  if(req.session.user) {
+    var tActual = new Date().getTime();
+    var diferenciaTiempo  = tActual - req.session.user.t;
+    if(diferenciaTiempo > 120000) {
+      var sessionController = require('./controllers/session_controller').destroy(req,res);
+    }
+    else
+    {
+      req.session.user.tiempo = tActual;
+    }
+  }
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
