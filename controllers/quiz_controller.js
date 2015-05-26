@@ -29,13 +29,20 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res) {
+    var options = {};
+    if(req.user)
+    {
+        options.where = {
+            UserId: req.user.id
+        }
+    }
     var texto = "";
     if (req.query.search === undefined)
     {
-        models.Quiz.findAll().then(function(quizes) {
-            res.render('quizes/index.ejs', {
-                quizes: quizes,
-                errors: []
+      models.Quiz.findAll(options).then(function(quizes) {
+        res.render('quizes/index.ejs', {
+          quizes: quizes,
+          errors: []
     });
   }).catch(function(error){next(error)});
     }
