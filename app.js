@@ -29,7 +29,11 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
-  if (!req.path.match(/\/login|\/logout/)) {   // guardar path en session.redir para despues de login
+
+  if (!req.session.redir) {
+    req.session.redir = '/';
+  }
+  if (!req.path.match(/\/login|\/logout|\/user/)) {   // guardar path en session.redir para despues de login
     req.session.redir = req.path;
   }
   res.locals.session = req.session;   // Hacer visible req.session en las vistas
